@@ -3,28 +3,26 @@ import threading
 import os
 
 
-def eternal_script(interval: int, total_time: int):
+def eternal_script(interval: int, total_time: int, variable: int):
 
     constant = 100
-    variable = 10
 
-    # with open("Log.txt", "a") as log_file:
-    #     log_file.write(f"Process 'This Process' has run for {total_time} seconds\n")
-    #     log_file.write(f"Dividing {constant} by {variable}")
-    #     log_file.write(f"Answer is {constant/variable}")
-    #     time.sleep(interval)
+    with open("Log.txt", "a") as log_file:
 
-    print(f"Process 'This Process' has run for {total_time} seconds\n")
-    print(f"Dividing {constant} by {variable}")
-    print(f"Answer is {constant/variable}"))
-    time.sleep(interval)
+        log_file.write(f"Process {os.getpid} has run for {total_time} seconds\n")
+        log_file.write(f"Current time is {time.ctime()}\n")
+        log_file.write(f"Dividing {constant} by {variable}\n")
+        log_file.write(f"Answer is {constant/variable}\n\n")
+        time.sleep(interval)
+    
 
 def task():
     start_time = time.perf_counter()
-
+    variable = 11
     while True:
+        variable = variable - 1
         current_time = time.perf_counter()
-        eternal_script(2, round(current_time-start_time))
+        eternal_script(2, round(current_time-start_time), variable)
 
 
 
