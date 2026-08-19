@@ -10,7 +10,7 @@ def eternal_script(interval: int, total_time: int, variable: int):
 
     with open("Log.txt", "a") as log_file:
 
-        log_file.write(f"Process {os.getpid} has run for {total_time} seconds\n")
+        log_file.write(f"Process {os.getpid()} has run for {total_time} seconds\n")
         log_file.write(f"Current time is {time.ctime()}\n")
         log_file.write(f"Dividing {constant} by {variable}\n")
         log_file.write(f"Answer is {constant/variable}\n\n")
