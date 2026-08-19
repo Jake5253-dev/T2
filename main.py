@@ -1,6 +1,7 @@
 import time
 import threading
 import os
+import sys
 
 
 def eternal_script(interval: int, total_time: int, variable: int):
@@ -16,18 +17,23 @@ def eternal_script(interval: int, total_time: int, variable: int):
         time.sleep(interval)
     
 
-def task():
+def task(interval: int):
     start_time = time.perf_counter()
     variable = 11
     while True:
         variable = variable - 1
         current_time = time.perf_counter()
-        eternal_script(2, round(current_time-start_time), variable)
+        eternal_script(interval, round(current_time-start_time), variable)
 
 
 
 if __name__ == "__main__":
+
+    if len(sys.argv) > 1 and sys.argv[1].isdigit():
+        argument = sys.argv[1]
+    else: 
+        argument = 10
     with open("Log.txt", "a") as log_file:
         log_file.write("_____________\n")
         log_file.write("New process instance starting\n")
-    thread = threading.Thread(target = task())
+    thread = threading.Thread(target = task(int(argument)))
